@@ -15,8 +15,10 @@ def print_book(book):
 Print a book list
 '''
 def print_book_list(book_list):
+    if(len(book_list)==0):
+        print("No seach result! better luck next time.")
     for book in book_list:
-        print("{} by {} ({})".format(book[0],book[1],book[3]))
+        print_book(book)
 '''
 Serach book list based on author & return list of books matches by author
 '''
