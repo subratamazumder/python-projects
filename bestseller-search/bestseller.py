@@ -42,6 +42,33 @@ def search_title(book_list, title_search_key):
         if(title_search_key.upper() in title.upper()):
             search_result.append(book)
     return search_result
+'''
+Serach book list based on year & month, returns list of books matches by that
+'''
+def search_year_month(book_list, year, month):
+    search_result = []
+    for book in book_list:
+        published_date = book[3]
+        published_date_splited = published_date.split("/")
+        pub_year = published_date_splited[2]
+        pub_month = published_date_splited[0]
+        #print("Matching key {} {} with {} {}".format(year,month,pub_year,pub_month))
+        if(int(pub_year) == year and int(pub_month) == month):
+           search_result.append(book)
+    return search_result
+'''
+Serach book list based on year range, returns list of books matches by that
+'''
+def search_year_range(book_list, start_year, end_year):
+    search_result = []
+    for book in book_list:
+        published_date = book[3]
+        published_date_splited = published_date.split("/")
+        pub_year = published_date_splited[2]
+        # print("Matching key {} {} with {}".format(start_year,end_year,pub_year))
+        if(int(pub_year) >= start_year and int(pub_year) <= end_year):
+           search_result.append(book)
+    return search_result
 
 '''
 Load data set into a book list 
@@ -85,17 +112,26 @@ Main program starts here
 book_list = load_books_data()
 while True:
     print_menu_options()
-    option = str ( input (">") )
-    if (option.upper() == "Q"):
-        print("Thank you, have a nice day!")
-        break
-    elif (int(option) == 1):
-        print("Sorry, feature not implemented yet!")
-    elif (int(option) == 2):
-        print("Sorry, feature not implemented yet!")
-    elif (int(option) == 3):
-        author_search_key = input ("Enter an author's name (or part of a name):")
-        print_book_list(search_author(book_list,author_search_key))
-    elif (int(option) == 4):
-        title_search_key = input ("Enter a title (or part of title):")
-        print_book_list(search_title(book_list,title_search_key))
+    try:
+        option = str ( input (">") )
+        if (option.upper() == "Q"):
+            print("Thank you, have a nice day!")
+            break
+        elif (int(option) == 1):
+            start_year = int( input ("Enter begining year:"))
+            end_year = int( input ("Enter ending month:"))
+            print_book_list(search_year_range(book_list,start_year,end_year))
+        elif (int(option) == 2):
+            year = int( input ("Enter year:"))
+            month = int( input ("Enter month:"))
+            print_book_list(search_year_month(book_list,year,month))
+        elif (int(option) == 3):
+            author_search_key = input ("Enter an author's name (or part of a name):")
+            print_book_list(search_author(book_list,author_search_key))
+        elif (int(option) == 4):
+            title_search_key = input ("Enter a title (or part of title):")
+            print_book_list(search_title(book_list,title_search_key))
+        else :
+            print("Invalid option, valid ones are 1,2,3,4 & q/Q!")
+    except ValueError:
+        print("Invalid option, valid ones are 1,2,3,4 & q/Q!")
