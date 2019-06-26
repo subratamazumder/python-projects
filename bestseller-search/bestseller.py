@@ -3,7 +3,8 @@ Bestseller Utility - compatible with Python3.x
 To get it work with Python2.7.x input() needs to be changed with raw_input().
 This programe expects to have a file named as "bestsellers.txt" in current directory. 
 And each line in this file must be formatted as
-title <tab> author <tab> publisher <tab> date <tab> category
+title <tab> author <tab> publisher <tab> date <tab> category.
+And date must be formatted as MM/DD/YYY
 '''
 FILE_TO_LOAD="bestsellers.txt"
 '''
